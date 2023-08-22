@@ -12,8 +12,8 @@ let productId
 
 beforeAll(async () => {
   const user = {
-    "email": "ceise@live.com",
-    "password": "Ledica1234"
+    email: "ceise@live.com",
+    password: "Ledica1234"
   }
   const res = await request(app)
     .post(URL_BASE_USER)
@@ -51,7 +51,7 @@ test("POST -> 'URL_BASE', should resturn status code 201 and res.body.title = pr
 
 })
 
-test("GET -> 'URL_BASE', should return status code 200 and res.body.legnth = 1", async () => {
+test("GET -> 'URL_BASE', should resturn status code 200 and res.body.legnth = 1", async () => {
 
   const res = await request(app)
     .get(URL_BASE)
@@ -61,19 +61,21 @@ test("GET -> 'URL_BASE', should return status code 200 and res.body.legnth = 1",
   expect(res.body).toHaveLength(1)
   expect(res.body[0].category).toBeDefined()
   expect(res.body[0].category.id).toBe(category.id)
-
 })
 
-test("GET -> 'URL_BASE?category=id', should return status code 200, res.body.toHaveLength === 1 and res.body[0].category to be defined and res.body[0]", async () => {
-  const res = await request(app)
-  .get(`${URL_BASE}?category=${category.id}`);
+test("GET -> 'URL_BASE?category=id', should resturn status code 200 and res.body.legnth = 1, res.body[0].category to be defined and res.body[0].category = category.id", async () => {
 
-  expect(res.status).toBe(200);
-  expect(res.body).toBeDefined();
-  expect(res.body).toHaveLength(1);
-  expect(res.body[0].category).toBeDefined();
-  expect(res.body[0].category.id).toBe(category.id);
-});
+  const res = await request(app) // /api/v1/products?category=1
+    .get(`${URL_BASE}?category=${category.id}`)
+
+
+  expect(res.status).toBe(200)
+  expect(res.body).toBeDefined()
+  expect(res.body).toHaveLength(1)
+  expect(res.body[0].category).toBeDefined()
+  expect(res.body[0].category.id).toBe(category.id)
+})
+
 
 test("GET ONE -> 'URL_BASE/:id', should resturn status code 200 and res.body.title = product.title", async () => {
 
@@ -83,7 +85,6 @@ test("GET ONE -> 'URL_BASE/:id', should resturn status code 200 and res.body.tit
   expect(res.status).toBe(200)
   expect(res.body).toBeDefined()
   expect(res.body.title).toBe(product.title)
-  
 })
 
 
